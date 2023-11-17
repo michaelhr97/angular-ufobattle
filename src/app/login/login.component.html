@@ -1,0 +1,14 @@
+<div class="col-12">
+  <h1 class="main__section--title">Login</h1>
+  <form class="main__section--form" method="post" (submit)="handleSubmit($event)">
+    <div class=" mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input id="username" name="username" type="text" class="form-control" [(ngModel)]='username' required autofocus />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" name="password" type="password" class="form-control" [(ngModel)]='password' required />
+    </div>
+    <button type="submit" class="btn btn-warning w-100" disabled>Login</button>
+  </form>
+</div>
