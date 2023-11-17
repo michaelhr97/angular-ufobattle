@@ -1,0 +1,15 @@
+#preferences__title {
+  font-size: 3.5rem;
+}
+
+.preferences__form--data {
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+}
+
+.preferences__data {
+  text-align: end;
+  background: transparent;
+  color: var(--orange);
+}

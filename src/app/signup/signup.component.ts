@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { User } from './user.model';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './signup.component.html',
 })
 export class SignupComponent {
