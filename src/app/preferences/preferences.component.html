@@ -2,14 +2,15 @@
   <div class="wrapper">
     <section class="main__section">
       <h1 id="preferences__title" class="main__section--title">preferences</h1>
-      <form id="preference__page--form" class="main__section--form">
+      <form id="preference__page--form" class="main__section--form" (submit)="handleSubmit($event)">
         <div class="preferences__form--data d-flex flex-row justify-content-between mb-3">
           <label for="totalufo" class="form-label">Number of UFO's</label>
-          <input type="number" class="preferences__data" id="totalufo" name="totalufo" min="1" max="5" />
+          <input type="number" class="preferences__data" id="totalufo" name="totalufo" min="1" max="5"
+            [(ngModel)]="totalufo" />
         </div>
         <div class="preferences__form--data d-flex flex-row justify-content-between mb-3">
           <label for="time" class="form-label">Time (seconds)</label>
-          <select type="number" class="preferences__data" id="time" name="time">
+          <select type="number" class="preferences__data" id="time" name="time" [(ngModel)]="time">
             <option value="60">60</option>
             <option value="120">120</option>
             <option value="180">180</option>
