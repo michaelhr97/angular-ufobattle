@@ -8,9 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PreferencesComponent } from './preferences/preferences.component';
-import { RecordsComponent } from './records/records.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { RecordsModule } from './records/records.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     HomeComponent,
     PreferencesComponent,
-    RecordsComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -27,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    RecordsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
