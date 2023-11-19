@@ -8,9 +8,17 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PreferencesComponent } from './preferences/preferences.component';
+import { RecordsComponent } from './records/records.component';
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent, LoginComponent, HomeComponent, PreferencesComponent],
+  declarations: [
+    AppComponent,
+    SignupComponent,
+    LoginComponent,
+    HomeComponent,
+    PreferencesComponent,
+    RecordsComponent,
+  ],
   providers: [],
   bootstrap: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
