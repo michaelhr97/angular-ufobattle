@@ -15,7 +15,7 @@ export class PreferencesComponent {
   handleSubmit(event: Event) {
     event.preventDefault();
 
-    sessionStorage.setItem('totalufo', this.totalufo.toString());
+    sessionStorage.setItem('numberUfos', this.totalufo.toString());
     sessionStorage.setItem('time', this.time.toString());
 
     this.toastr.success('Preferences saved!');
