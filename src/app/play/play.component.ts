@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  HostListener,
+} from '@angular/core';
 import { Ufo } from './ufo.model';
 import Swal from 'sweetalert2';
 import { Missile } from './missile.model';
@@ -15,6 +21,7 @@ export class PlayComponent implements OnInit {
   numberUfos: any;
   listUfos: any;
   missile: any;
+  hit = '';
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
@@ -25,7 +32,7 @@ export class PlayComponent implements OnInit {
     this.time = storedTime ? Number.parseInt(storedTime) : 60;
 
     const storedNumberUfos = sessionStorage.getItem('numberUfos');
-    this.numberUfos = storedNumberUfos ? Number.parseInt(storedNumberUfos) : 5;
+    this.numberUfos = storedNumberUfos ? Number.parseInt(storedNumberUfos) : 1;
     this.listUfos = [];
 
     this.pid = setInterval(() => this.updateTimer(), 1000);
@@ -67,6 +74,7 @@ export class PlayComponent implements OnInit {
     for (let i = 0; i < this.numberUfos; i++) {
       this.listUfos[i].pid = setInterval(() => {
         this.listUfos[i].move();
+        this.checkForHit(this.listUfos[i]);
       }, 25);
     }
   }
@@ -91,5 +99,67 @@ export class PlayComponent implements OnInit {
         Swal.fire('Changes are not saved', '', 'info');
       }
     });
+  }
+
+  pullTrigger() {
+    this.missile.isLaunched = true;
+    this.missile.pid = setInterval(() => this.missile.launch(), 25);
+  }
+
+  checkForHit(ufo: Ufo) {
+    let ufoElement = document.getElementById(ufo.id) as HTMLElement;
+
+    if (this.hit) {
+      this.missile.isLaunched = false;
+      return;
+    }
+
+    if (
+      this.missile.isLaunched &&
+      this.missile.verticalPosition + this.missile.height >=
+        ufo.verticalPosition &&
+      this.missile.horizontalPosition + this.missile.width / 2 >=
+        ufo.horizontalPosition &&
+      this.missile.verticalPosition + this.missile.width / 2 <=
+        ufo.verticalPosition + ufo.width &&
+      this.missile.verticalPosition <= ufo.verticalPosition
+    ) {
+      this.hit = ufo.id;
+    }
+
+    if (this.hit) {
+      clearInterval(this.missile.pid);
+      this.missile.reset();
+      this.score = this.score + 100;
+
+      ufoElement.setAttribute('src', 'assets/images/explosion.gif');
+
+      setTimeout(() => {
+        ufoElement.setAttribute('src', 'assets/images/ufo.png');
+      }, 1000);
+
+      this.hit = '';
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeydown(event: KeyboardEvent) {
+    let code = event.key;
+
+    if (!this.missile.isLaunched) {
+      switch (code) {
+        case 'ArrowLeft':
+          this.missile.moveLeft();
+          break;
+        case 'ArrowRight':
+          this.missile.moveRight();
+          break;
+        case ' ':
+          this.pullTrigger();
+          break;
+        default:
+          break;
+      }
+    }
   }
 }

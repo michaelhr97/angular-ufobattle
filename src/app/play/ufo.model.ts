@@ -2,6 +2,7 @@ export class Ufo {
   id: string;
   pid: any;
   horizontalPosition: number;
+  verticalPosition: number;
   horizontalStep: number;
   element: any;
   width: number;
@@ -11,6 +12,7 @@ export class Ufo {
     this.id = id;
     this.element = document.getElementById(id) as HTMLElement;
     this.horizontalPosition = Number.parseInt(this.element.style.left);
+    this.verticalPosition = Number.parseInt(this.element.style.bottom);
     this.horizontalStep = 5;
     this.width = Number.parseInt(this.element.style.width);
     this.windowHorizontalLimit = window.innerWidth;

@@ -2,6 +2,7 @@ export class Missile {
   id: string;
   pid: any;
   height: number;
+  width: number;
   horizontalPosition: number;
   verticalPosition: number;
   horizontalStep: number;
@@ -15,6 +16,7 @@ export class Missile {
     this.id = id;
     this.pid = pid;
     this.height = 70;
+    this.width = 30;
     this.horizontalPosition = 300;
     this.verticalPosition = 0;
     this.horizontalStep = 5;
@@ -26,17 +28,27 @@ export class Missile {
     this.windowVerticalLimit = window.innerHeight;
   }
 
-  getVerticalPosition() {
-    return this.verticalPosition;
+  reset() {
+    this.verticalPosition = 0;
+    this.element.style.bottom = `${this.verticalPosition}px`;
+    this.isLaunched = false;
   }
 
-  getHorizontalPosition() {
-    return this.horizontalPosition;
+  moveLeft() {
+    if (this.horizontalPosition > 0) {
+      this.horizontalPosition = this.horizontalPosition - this.horizontalStep;
+      this.element.style.left = `${this.horizontalPosition}px`;
+    }
   }
 
-  move() {
-    this.horizontalPosition = this.horizontalPosition + this.horizontalStep;
-    this.element.style.left = `${this.horizontalPosition}px`;
+  moveRight() {
+    if (
+      this.horizontalPosition + this.width + 12 <
+      this.windowHorizontalLimit
+    ) {
+      this.horizontalPosition = this.horizontalPosition + this.horizontalStep;
+      this.element.style.left = `${this.horizontalPosition}px`;
+    }
   }
 
   launch() {
@@ -46,7 +58,7 @@ export class Missile {
       this.isLaunched = false;
       clearInterval(this.pid);
       this.verticalPosition = 0;
-      this.element.style.bottom = `${this.verticalPosition}px`;
     }
+    this.element.style.bottom = `${this.verticalPosition}px`;
   }
 }
