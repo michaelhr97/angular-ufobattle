@@ -12,7 +12,7 @@
           <label for="password" class="form-label">Password</label>
           <input id="password" name="password" type="password" class="form-control" [(ngModel)]='password' required />
         </div>
-        <button type="submit" class="btn btn-warning w-100" disabled>Login</button>
+        <button type="submit" class="btn btn-warning w-100" [disabled]="checkFormDataValid()">Login</button>
       </form>
     </section>
   </div>

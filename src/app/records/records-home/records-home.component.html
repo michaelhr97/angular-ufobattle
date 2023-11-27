@@ -1,8 +1,15 @@
 <main class="main">
   <div class="wrapper">
-    <section class="main__section">
-      <h1 class="main__section--title">Records</h1>
-      <app-table [data]="data"></app-table>
-    </section>
+    <div class="records_wrapper">
+      <section class="main__section">
+        <h1 class="main__section--title">General records</h1>
+        <app-table [data]="recordsList"></app-table>
+      </section>
+
+      <section class="main__section" *ngIf="isLogged">
+        <h1 class="main__section--title">Personal records</h1>
+        <app-table [data]="userRecordsList"></app-table>
+      </section>
+    </div>
   </div>
 </main>

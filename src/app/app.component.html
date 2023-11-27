@@ -1,4 +1,4 @@
-<nav id="nav" class="navbar fixed-top bg-transparent navbar-expand" *ngIf="showMenu">
+<nav id="nav" class="navbar fixed-top bg-transparent navbar-expand">
   <div id="nav__wrapper" class="container">
     <div id="nav__wrapper--menu">
       <ul class=" navbar-nav me-auto mb-2">
@@ -18,7 +18,7 @@
       <ng-container *ngIf="isLogged">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-white" routerLink="signup">Logout</a>
+            <a class="nav-link text-white" (click)="logout()" routerLink="/">Logout</a>
           </li>
         </ul>
       </ng-container>
@@ -33,6 +33,7 @@
           </li>
         </ul>
       </ng-container>
+
     </div>
   </div>
 </nav>

@@ -5,23 +5,25 @@
       <form id="register__page--form" class="main__section--form" method="post" (submit)="handleSubmit($event)">
         <div class=" mb-3">
           <label for="username" class="form-label">Username</label>
-          <input id="username" name="username" type="text" class="form-control" [(ngModel)]='username' required
-            autofocus />
+          <input id="username" name="username" type="text" class="form-control" [(ngModel)]='username'
+            (blur)="handleBlur()" maxlength="8" autofocus />
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input id="email" name="email" type="email" class="form-control" [(ngModel)]='email' required />
+          <input id="email" name="email" type="email" class="form-control" [(ngModel)]='email' />
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input id="password" name="password" type="password" class="form-control" [(ngModel)]='password' required />
+          <input id="password" name="password" type="password" class="form-control" [(ngModel)]='password' />
         </div>
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Confirm Password</label>
           <input id="confirmPassword" name="confirmPassword" type="password" class="form-control"
-            [(ngModel)]='confirmPassword' required />
+            [(ngModel)]='confirmPassword' />
         </div>
-        <button id="register__page--button" type="submit" class="btn btn-warning w-100" disabled>Sign up</button>
+        <button id="register__page--button" type="submit" class="btn btn-warning w-100"
+          [disabled]="checkFormDataValid()">Sign
+          up</button>
       </form>
     </section>
   </div>

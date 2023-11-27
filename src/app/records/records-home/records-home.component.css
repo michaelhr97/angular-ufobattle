@@ -1,0 +1,13 @@
+.records_wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.records_wrapper > .main__section {
+  margin: 0 2rem;
+  min-width: 600px;
+}
+
+.records_wrapper > .main__section > .main__section--title {
+  font-size: 2.25rem;
+}

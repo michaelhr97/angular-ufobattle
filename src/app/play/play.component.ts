@@ -5,9 +5,9 @@ import {
   Renderer2,
   HostListener,
 } from '@angular/core';
-import { Ufo } from './ufo.model';
+import { Ufo } from '../shared/models/ufo.model';
 import Swal from 'sweetalert2';
-import { Missile } from './missile.model';
+import { Missile } from '../shared/models/missile.model';
 
 @Component({
   selector: 'app-play',

@@ -9,7 +9,14 @@
   <tbody class="records__table--body">
     <tr *ngFor="let record of data">
       <ng-container *ngFor="let header of headers">
-        <td>{{record[header.key]}}</td>
+        <td>
+          <ng-container *ngIf="header.key === 'recordDate'; else notDate">
+            {{ record[header.key] | date:'dd/MM/yyyy' }}
+          </ng-container>
+          <ng-template #notDate>
+            {{ record[header.key] }}
+          </ng-template>
+        </td>
       </ng-container>
     </tr>
   </tbody>
