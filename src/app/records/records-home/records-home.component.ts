@@ -36,7 +36,7 @@ export class RecordsHomeComponent implements OnInit {
     if (this.isLogged) {
       this.conex
         .getRecordsListByUsername(this.username, this.token)
-        .subscribe((response) => (this.userRecordsList = response.body));
+        .subscribe((response) => (this.userRecordsList = response));
     }
   }
 }

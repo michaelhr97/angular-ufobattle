@@ -8,6 +8,8 @@ import {
 import { Ufo } from '../shared/models/ufo.model';
 import Swal from 'sweetalert2';
 import { Missile } from '../shared/models/missile.model';
+import { HttpService } from '../shared/services/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-play',
@@ -22,14 +24,25 @@ export class PlayComponent implements OnInit {
   listUfos: any;
   missile: any;
   hit = '';
+  isLogged = false;
+  token: any;
+  storedTime: any;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private conex: HttpService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.score = 0;
 
-    const storedTime = sessionStorage.getItem('time');
-    this.time = storedTime ? Number.parseInt(storedTime) : 60;
+    this.token = sessionStorage.getItem('token');
+    this.isLogged = this.token ? true : false;
+
+    this.storedTime = sessionStorage.getItem('time');
+    this.time = this.storedTime ? Number.parseInt(this.storedTime) : 60;
 
     const storedNumberUfos = sessionStorage.getItem('numberUfos');
     this.numberUfos = storedNumberUfos ? Number.parseInt(storedNumberUfos) : 1;
@@ -86,19 +99,29 @@ export class PlayComponent implements OnInit {
     }
 
     clearInterval(this.pid);
-    Swal.fire({
-      title: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success');
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info');
-      }
-    });
+    if (this.isLogged) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', '', 'success');
+          this.conex
+            .postRecord(
+              this.score,
+              this.numberUfos,
+              this.storedTime || 60,
+              this.token
+            )
+            .subscribe((response) => console.log('Record inserted correctly'));
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info');
+        }
+      });
+    }
   }
 
   pullTrigger() {

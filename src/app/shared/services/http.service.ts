@@ -26,7 +26,7 @@ export class HttpService {
     params = params.set('username', username);
     params = params.set('password', password);
 
-    return this.http.get(`${this.baseUrl}/users/login`, { params });
+    return this.http.get(`${this.baseUrl}/users/login`, { params: params });
   }
 
   checkUserExistsByUsername(username: string): Observable<any> {
@@ -43,8 +43,7 @@ export class HttpService {
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get(`${this.baseUrl}/records/${username}`, {
-      headers,
-      observe: 'response',
+      headers: headers,
     });
   }
 
@@ -54,13 +53,13 @@ export class HttpService {
     time: number,
     token: string
   ): Observable<any> {
-    let headers = new HttpHeaders();
-    headers.set('Authorization', token);
-    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    let headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/x-www-form-urlencoded');
     let body = `punctuation=${score}&ufos=${ufos}&disposedTime=${time}`;
 
     return this.http.post(`${this.baseUrl}/records`, body, {
-      headers,
+      headers: headers,
       observe: 'response',
     });
   }
